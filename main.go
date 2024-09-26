@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"os"
 
-	"github.com/jcocozza/super-transformer/core"
-	formattransformers "github.com/jcocozza/super-transformer/core/formatTransformers"
+	"github.com/jcocozza/super-transformer/cli"
+	//"github.com/jcocozza/super-transformer/core"
+	//formattransformers "github.com/jcocozza/super-transformer/core/formatTransformers"
 )
 
 func main() {
@@ -40,6 +41,7 @@ func main() {
 	fmt.Println(string(b))
 	*/
 
+	/*
 	path := "/Users/josephcocozza/Downloads/foo.txt"
 	t := core.GetTransformer(path)
 	data, err := os.ReadFile(path)
@@ -52,4 +54,6 @@ func main() {
 	}
 	b, _ := core.EncodeJson(d)
 	fmt.Println(string(b))
+	*/
+	cli.ParseArgs(os.Args)
 }
