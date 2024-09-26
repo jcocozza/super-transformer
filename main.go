@@ -29,11 +29,8 @@ func main() {
 
 	path := fmt.Sprintf("%s/data/%s", WD, FILE)
 
-	fmt.Println(FILE)
-
 	t := core.GetTransformer(path)
 	data, err := os.ReadFile(path)
-	fmt.Println(data)
 	if err != nil {
 		panic(err)
 	}
