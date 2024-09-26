@@ -2,9 +2,9 @@ package main
 
 import (
 	//"fmt"
-	"os"
 
-	"github.com/jcocozza/super-transformer/cli"
+	"github.com/jcocozza/super-transformer/api"
+	//"github.com/jcocozza/super-transformer/cli"
 	//"github.com/jcocozza/super-transformer/core"
 	//formattransformers "github.com/jcocozza/super-transformer/core/formatTransformers"
 )
@@ -55,5 +55,6 @@ func main() {
 	b, _ := core.EncodeJson(d)
 	fmt.Println(string(b))
 	*/
-	cli.ParseArgs(os.Args)
+	//cli.ParseArgs(os.Args)
+	api.Api()
 }

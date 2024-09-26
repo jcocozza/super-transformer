@@ -2,7 +2,7 @@ package formattransformers
 
 import "path/filepath"
 
-func getFileType(path string) string {
+func GetFileType(path string) string {
     return filepath.Ext(path)
 }
 
