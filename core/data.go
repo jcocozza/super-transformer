@@ -20,7 +20,7 @@ func GetTransformer(path string) Transformer {
 	switch getFileType(path) {
 	case ".csv":
 		transformer = &formattransformers.CSVTransformer{}
-	case ".xls":
+	case ".xlsx":
 		transformer = &formattransformers.ExcelTransformer{}
 	}
 	return transformer

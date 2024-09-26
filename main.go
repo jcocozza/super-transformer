@@ -23,7 +23,7 @@ func main() {
 	b, _ := core.EncodeJson(d)
 	fmt.Println(string(b))
 	*/
-	path := "/Users/josephcocozza/Downloads/file_example_XLS_50.xls"
+	path := "/Users/josephcocozza/Downloads/file_example_XLSX_100.xlsx"
 	t := core.GetTransformer(path)
 	data, err := os.ReadFile(path)
 	if err != nil {
