@@ -10,6 +10,23 @@ import (
 
 type ParquetTransformer struct{}
 
+// chatgpt claims a fixed schema can help
+/*
+type MTCars struct {
+    MPG   float64 `parquet:"name=mpg, type=DOUBLE"`
+    Cyl   int32   `parquet:"name=cyl, type=INT32"`
+    Disp  float64 `parquet:"name=disp, type=DOUBLE"`
+    HP    int32   `parquet:"name=hp, type=INT32"`
+    Drat  float64 `parquet:"name=drat, type=DOUBLE"`
+    WT    float64 `parquet:"name=wt, type=DOUBLE"`
+    QSec  float64 `parquet:"name=qsec, type=DOUBLE"`
+    VS    int32   `parquet:"name=vs, type=INT32"`
+    AM    int32   `parquet:"name=am, type=INT32"`
+    Gear  int32   `parquet:"name=gear, type=INT32"`
+    Carb  int32   `parquet:"name=carb, type=INT32"`
+}
+*/
+
 type BytesReader struct {
 	*bytes.Reader
 }
@@ -41,47 +58,49 @@ func (r *BytesReader) Write(p []byte) (n int, err error) {
 }
 
 func (pt *ParquetTransformer) Parse(data []byte, opts *FormatOptions) (map[string]any, error) {
-	/* memory reader for raw bytes */
-	// pr := source.NewBytesReader(bytes.NewReader(data))
-
 	if data == nil || len(data) == 0 {
 		return nil, fmt.Errorf("no data provided")
 	}
 
-	fmt.Println("hi")
-
 	byteReader := &BytesReader{bytes.NewReader(data)}
 
-	fmt.Println("bye")
-
 	/* new parquet reader */
-	pr, err := reader.NewParquetReader(byteReader, nil, 4)
-
+	pr, err := reader.NewParquetReader(byteReader, nil, 1)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create parquet reader: %w", err)
 	}
 	defer pr.ReadStop()
+
+  /* ensure schema is legit */
+  schema := pr.SchemaHandler
+  fmt.Println("schema is:", schema)
 
 	/* read data from file */
 	numRows := int(pr.GetNumRows())
 	if opts != nil && opts.RowLimit > 0 && opts.RowLimit < numRows {
 		numRows = opts.RowLimit
 	}
+  fmt.Println("num rows to read is:", numRows)
 
 	rows := make([]interface{}, numRows)
-	if err := pr.Read(&rows); err != nil {
+  //err = pr.Read(&rows)
+  
+  // go 1 at a time
+  val, err := pr.ReadByNumber(4)
+  fmt.Println(val)
+
+  if err != nil {
 		return nil, fmt.Errorf("failed to read rows: %w", err)
 	}
-
-  fmt.Println("num rows read is:", len(rows))
+  fmt.Println("rows read:", len(rows))
+  fmt.Printf("row content: %+v\n", rows)
 
 	result := make(map[string]any)
-	for i, row := range rows {
+  for i, row := range rows {
+    
     fmt.Println(row)
 		result[fmt.Sprintf("row_%d", i)] = row
-	}
-
-	fmt.Println("num of rows is", numRows)
+  }
 
   fmt.Println(result)
 
