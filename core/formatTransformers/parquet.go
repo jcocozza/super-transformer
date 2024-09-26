@@ -52,8 +52,10 @@ func (pt *ParquetTransformer) Parse(data []byte, opts *FormatOptions) (map[strin
 
 	byteReader := &BytesReader{bytes.NewReader(data)}
 
+	fmt.Println("bye")
+
 	/* new parquet reader */
-	pr, err := reader.NewParquetReader(byteReader, new(interface{}), 4)
+	pr, err := reader.NewParquetReader(byteReader, nil, 4)
 
 	if err != nil {
 		return nil, fmt.Errorf("failed to create parquet reader: %w", err)
@@ -62,8 +64,26 @@ func (pt *ParquetTransformer) Parse(data []byte, opts *FormatOptions) (map[strin
 
 	/* read data from file */
 	numRows := int(pr.GetNumRows())
+	if opts != nil && opts.RowLimit > 0 && opts.RowLimit < numRows {
+		numRows = opts.RowLimit
+	}
+
+	rows := make([]interface{}, numRows)
+	if err := pr.Read(&rows); err != nil {
+		return nil, fmt.Errorf("failed to read rows: %w", err)
+	}
+
+  fmt.Println("num rows read is:", len(rows))
+
+	result := make(map[string]any)
+	for i, row := range rows {
+    fmt.Println(row)
+		result[fmt.Sprintf("row_%d", i)] = row
+	}
 
 	fmt.Println("num of rows is", numRows)
 
-	return nil, nil
+  fmt.Println(result)
+
+	return result, nil
 }
