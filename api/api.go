@@ -67,12 +67,16 @@ const html string = `
 	<body>
 		<form enctype="multipart/form-data" action="/upload" method="POST">
 			<input type="file" name="update_file" />
+			<br>
 			split by line:
 			<input type="checkbox" name="split_by_line" value="true" />
+			<br>
 			has header:
 			<input type="checkbox" name="has_header" value="true" />
+			<br>
 			row limit:
 			<input type="number" name="row_limit" increment="1" min="1" />
+			<br>
 			<input type="submit" value="Upload" />
 		</form>
 	</body>
