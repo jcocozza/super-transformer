@@ -22,6 +22,8 @@ func GetTransformer(path string) Transformer {
 		transformer = &formattransformers.CSVTransformer{}
 	case ".xlsx":
 		transformer = &formattransformers.ExcelTransformer{}
+	case ".parquet":
+		transformer = &formattransformers.ParquetTransformer{}
 	}
 	return transformer
 }
