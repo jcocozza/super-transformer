@@ -11,6 +11,7 @@
 🌀 **Super Transformer** takes your raw, structured data (like Parquet files) and transforms it into something usable. Whether you’re working with cloud data, local files, or complex formats, this tool is built to handle them all. It’s all about transforming messy data into a format that can be easily processed or analyzed.
 
 ### 🚀 Features
+
 - 🛠 **Parquet Parsing**: Seamless Parquet-to-Go struct transformation. No more Parquet headaches!
 - 🎛 **Flexible Transformation**: Handles different data formats & provides custom transformations.
 - 💨 **Fast and Efficient**: Optimized for performance with Go's concurrency model.
@@ -31,8 +32,8 @@ cd super-transformer
 go mod tidy
 ```
 
-
 ### 🎮 Running the Transformer
+
 After installation, you can run the transformer like this:
 
 ```bash
@@ -67,7 +68,6 @@ We take testing seriously here. Test your transformation before running in produ
 go test ./...
 ```
 
-
 Results looking good? 🍻 Now you can brag about it!
 
 ---
@@ -76,17 +76,18 @@ Results looking good? 🍻 Now you can brag about it!
 
 You can configure **Super Transformer** to meet your specific needs.
 
-| Option       | Default       | Description                                      |
-|--------------|---------------|--------------------------------------------------|
-| `-input`     | `data.parquet` | The input file path for the Parquet file         |
-| `-output`    | `output.json`  | The path to save the output (in JSON format)     |
-| `-rowlimit`  | Unlimited      | Limit the number of rows transformed             |
+| Option        | Default        | Description                                         |
+| ------------- | -------------- | --------------------------------------------------- |
+| `-has-header` | false          | Include this if the CSV has a header (CSV ONLY)     |
+| `-split-line` | false          | split by lines (PLAIN TEXT ONLY)                    |
+| `-rowlimit`   | -1 (unlimited) | Limit the number of rows transformed (PARQUET ONLY) |
 
 ---
 
 ## 🤖 Future Features
 
 🎯 **Planned Additions**:
+
 - 🚀 **Support for ORC & Avro**: Broader format support.
 - 📊 **Schema Validation**: Automatically validate schemas.
 - 🧠 **AI-powered transformations**: Because why not make it fancy?
@@ -106,4 +107,3 @@ We love collaboration! Submit pull requests, open issues, or make feature sugges
 ---
 
 🌟 **Super Transformer** is here to change the way you work with data! Join us on this journey! 🚀
-

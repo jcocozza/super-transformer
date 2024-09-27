@@ -13,7 +13,7 @@ import (
 func ParseArgs(args []string) {
 	hasHeader := flag.Bool("has-header", false, "[CSV] include if the csv file has a header")
 	splitByLine := flag.Bool("split-line", false, "[Plain Text] include if you want to return the plain text line by line")
-	rowLimit := flag.Int("split-line", -1, "[Parquet] set the max rows")
+	rowLimit := flag.Int("rowlimit", -1, "[Parquet] set the max rows")
 	flag.Parse()
 	if len(args) < 1 {
 		fmt.Println("expected file path")
